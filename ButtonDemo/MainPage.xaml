@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ButtonDemo"
+             x:Class="ButtonDemo.MainPage"
+             BackgroundColor="Firebrick">
+    
+    <StackLayout>
+        
+        <Label x:Name="label"
+               Text="Совы не то, чем кажутся"
+               FontSize="20" 
+               FontAttributes="Italic"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="Center"
+               BackgroundColor="WhiteSmoke" 
+               TextColor="Black"
+               Padding="10"
+               Margin="50"/>
+
+        <Button x:Name="button"
+                Text="Проверьте"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
+                TextColor="{Binding Source={x:Reference textColorPicker},
+                Path=SelectedItem.Color}"
+                BackgroundColor="{Binding Source={x:Reference backgroundColorPicker},
+                Path=SelectedItem.Color}"
+                BorderColor="{Binding Source={x:Reference borderColorPicker},
+                Path=SelectedItem.Color}"
+                Pressed="OnButtonPressed"
+                Released="OnButtonReleased"/>
+        
+        <StackLayout Orientation="Horizontal">
+            
+            <Label Text="Button.FontAttributes=None"
+                   VerticalOptions="Center"
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="12" 
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+            
+            <Switch x:Name="BoldSwitch"
+                    Toggled="OnSwitchToggled"
+                    HorizontalOptions="CenterAndExpand"/>
+            
+            <Label Text="Button.FontAttributes=Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="12" 
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+            
+        </StackLayout>
+        
+        <StackLayout BindingContext="{x:Reference button}"
+                     Padding="10">
+            <Slider x:Name="fontSizeSlider"
+                    Maximum="30"
+                    Minimum="1"
+                    Value="{Binding FontSize}"
+                    MinimumTrackColor="GhostWhite"
+                    MaximumTrackColor="Blue"/>
+            
+            <Label Text="{Binding Source={x:Reference fontSizeSlider},
+                   Path=Value,
+                   StringFormat='FontSize = {0:F0}'}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="16"
+                   TextColor="Black"/>
+            
+            <Slider x:Name="borderWidthSlider"
+                    Minimum="-1"
+                    Maximum="12"
+                    Value="{Binding BorderWidth}"
+                    MinimumTrackColor="GhostWhite"
+                    MaximumTrackColor="Blue"/>
+            
+            <Label Text="{Binding Source={x:Reference borderWidthSlider},
+                   Path=Value,
+                   StringFormat='BorderWidth = {0:F0}'}"
+                   HorizontalTextAlignment="Center" 
+                   FontSize="16"
+                   TextColor="Black"/>
+            
+            <Slider x:Name="cornerRadiusSlider"
+                    Minimum="-1"
+                    Maximum="24"
+                    Value="{Binding CornerRadius}"
+                    MinimumTrackColor="GhostWhite"
+                    MaximumTrackColor="Blue"/>
+            
+            <Label Text="{Binding Source={x:Reference cornerRadiusSlider},
+                   Path=Value,
+                   StringFormat='CornerRadius = {0:F0}'}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="16"
+                   TextColor="Black"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalOptions" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+
+                <Label Text="Text Color:"
+                       Grid.Row="0" Grid.Column="0"
+                       TextColor="Black"
+                       FontSize="16"/>
+
+                <Picker x:Name="textColorPicker"
+                        ItemsSource="{Binding Source={x:Static local:NamedColor.All}}"
+                        ItemDisplayBinding="{Binding FriendlyName}"
+                        SelectedIndex="0"
+                        Grid.Row="0" 
+                        Grid.Column="1" />
+
+                <Label Text="Background Color:"
+                       Grid.Row="1" 
+                       Grid.Column="0"
+                       TextColor="Black"
+                       FontSize="16"/>
+
+                <Picker x:Name="backgroundColorPicker"
+                        ItemsSource="{Binding Source={x:Static local:NamedColor.All}}"
+                        ItemDisplayBinding="{Binding FriendlyName}"
+                        SelectedIndex="0"
+                        Grid.Row="1" 
+                        Grid.Column="1" />
+
+                <Label Text="Border Color:"
+                       Grid.Row="2" 
+                       Grid.Column="0"
+                       TextColor="Black"
+                       FontSize="16"/>
+
+                <Picker x:Name="borderColorPicker"
+                        ItemsSource="{Binding Source={x:Static local:NamedColor.All}}"
+                        ItemDisplayBinding="{Binding FriendlyName}"
+                        SelectedIndex="0"
+                        Grid.Row="2" 
+                        Grid.Column="1" />
+
+            </Grid>
+            
+        </StackLayout>
+        
+    </StackLayout>
+    
+</ContentPage>
